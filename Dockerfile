@@ -16,6 +16,5 @@ COPY app.R /srv/shiny-server/tagging/
 COPY google-analytics.js /srv/shiny-server/tagging/
 COPY README.md /srv/shiny-server/tagging/
 COPY styles2.css /srv/shiny-server/tagging/
-
 EXPOSE 3838
 CMD ["/usr/bin/shiny-server.sh"]

@@ -9,13 +9,13 @@ RUN Rscript -e "install.packages(c('htmlwidgets','dplyr','plotly','leaflet','map
 RUN sudo chown -R shiny:shiny /var/lib/shiny-server/
 # copy shiny-server config file
 #COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
-COPY Data /srv/shiny-server/Data
-COPY www /srv/shiny-server/www
-COPY .Rhistory /srv/shiny-server/
-COPY app.R /srv/shiny-server/
-COPY google-analytics.js /srv/shiny-server/
-COPY README.md /srv/shiny-server/
-COPY styles2.css /srv/shiny-server/
+COPY Data /srv/shiny-server/tagging/Data
+COPY www /srv/shiny-server/tagging/www
+COPY .Rhistory /srv/shiny-server/tagging/
+COPY app.R /srv/shiny-server/tagging/
+COPY google-analytics.js /srv/shiny-server/tagging/
+COPY README.md /srv/shiny-server/tagging/
+COPY styles2.css /srv/shiny-server/tagging/
 
 EXPOSE 3838
 CMD ["/usr/bin/shiny-server.sh"]

@@ -1,7 +1,1 @@
-install.packages("shiny")
-install.packages("leaflet")
-install.packages("mapview")
-install.packages("dplyr")
-install.packages("plotly")
-install.packages("htmlwidgets")
-writeLines("R_LIBS_USER=/srv/rlibs", "~/.Renviron")
+install.packages(c("shiny","leaflet","mapview","dplyr","plotly","htmlwidgets"))

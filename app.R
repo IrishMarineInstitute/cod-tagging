@@ -5,9 +5,11 @@ library(mapview)
 library(dplyr)
 library(plotly)
 library(htmlwidgets)
+#library(webshot2)
+library(shinyscreenshot)
 
 #library(MASS)
-webshot::install_phantomjs() # needed for map download function
+#webshot::install_phantomjs() # needed for map download function
 
 recaptures <- read.csv("Data/Recaptures.csv")
 recaps <- filter(recaptures, Distance_nm < 250)
@@ -71,7 +73,13 @@ ui <- navbarPage("Tagging",
                                                              htmlOutput("LF_title"),
                                                              plotlyOutput("LF_hist")),
                               br(),
-                              downloadButton(outputId = "dl", label = "Download Map"),
+                              screenshotButton( 
+                                selector = "body", 
+                                filename = paste0("CodTagging_",Sys.Date()), 
+                                id = "", 
+                                scale = 1, 
+                                timer = 0, 
+                                download = TRUE),
                                             img(src="Logos/split_logos.png", width =350, style="display: block;margin-top:2em")
                               )
                           )
@@ -178,24 +186,25 @@ server <- function(input, output, session) {
   # and specify how the download button will take
   # a screenshot - using the mapview::mapshot() function
   # and save as a PDF
-  output$dl <- downloadHandler(
-    filename = paste0( Sys.Date()
-                       , "_customLeafletmap"
-                       , ".pdf"
-    )
-    
-    , content = function(file) {
-      mapshot( x = user.created.map()
-               , file = file
-               , cliprect = "viewport" 
-               #the clipping rectangle matches the height & width from the viewing port
-               , selfcontained = FALSE 
-               #when this was not specified, the function for produced a PDF of two pages: 
-               #one of the leaflet map, the other a blank page.
-      )
-    } # end of content() function
-  ) # end of downloadHandler() function
+  # output$dl <- downloadHandler(
+  #   filename = paste0( Sys.Date()
+  #                      , "_customLeafletmap"
+  #                      , ".pdf"
+  #   )
+  #   
+  #   , content = function(file) {
+  #     mapshot2( x = user.created.map()
+  #               , file = file
+  #               , cliprect = "viewport"
+  #               #the clipping rectangle matches the height & width from the viewing port
+  #               , selfcontained = FALSE
+  #               #when this was not specified, the function for produced a PDF of two pages:
+  #               #one of the leaflet map, the other a blank page.
+  #     )
+  #   } # end of content() function
+  # ) # end of downloadHandler() function
   
+
   ###############################################
   ############## Gear of tagging vessel text ####
   ###############################################
